@@ -7,10 +7,7 @@
 
 == Demonstration
 
-Include here content related to potential existing demos: blogs, articles, recorded videos, walkthrough guides, tutorials.
-
 [#demo-video]
-=== Watch a demonstration
 
 In this video you can see xpto:
 
@@ -18,17 +15,753 @@ video::3yULVMdqJ98[youtube, width=800, height=480]
 
 Next, you can learn how to walkthrough this demo.
 
-== Run the demonstration
+== Setup the solution
 
-=== Before getting started
-To run this demo, you will need xpto. Adding to that, make sure to have:
+To provision the demo you will perform the following steps - each of which are explained in detail in the next sections:
 
-* ABC
-* XYZ
-* XPTO
+* Gain access to Red Hat OpenShift. This solution pattern has been tested on https://docs.openshift.com/container-platform/4.15/welcome/index.html[OpenShift 4.15^]
+* Ensure you have the tools `oc` and `ansible` installed in your local environment such as your laptop
+* Access the OpenShift cluster with cluster-admin privileges
+* Log in to OpenShift with `cluster-admin` role via cli
+* Run the Ansible playbook
+* Run a  bunch of scripts to deploy the Solution Pattern in your OpenShift cluster
+
+=== Pre-requisites
+Here is the list of tools you need in your local enviroment so that you can use the automated installation.
+
+* https://docs.openshift.com/container-platform/4.15/cli_reference/openshift_cli/getting-started-cli.html[OpenShift CLI (oc client)^]
+* https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html[Ansible CLI ^] with https://docs.ansible.com/ansible/latest/collections/kubernetes/core/k8s_module.html[Ansible kubernetes.core module^]
+
+To check if you have the cli tools, you can open your terminal and use following commands:
+
+[.console-input]
+[source,shell script]
+----
+oc version #openshift cli client
+ansible --version
+ansible-galaxy --version
+ansible-galaxy collection list #the list should include kubernetes.core
+----
+
+If you can't see `kubernetes.core` collection listed, you can install it with `ansible-galaxy`:
+
+[.console-input]
+[source,shell script]
+----
+ansible-galaxy collection install kubernetes.core
+----
+
 
 === Installing the demo
-Installation guide and basic test of the demo installation if needed
 
-=== Walkthrough guide
-How to run through the demo
+* Login to your OpenShift cluster as cluster-admin (because a number of operators will need to be installed)
+* Click on the username on the top right hand, and then click on *Copy login command*. This will open another tab and you will need to login again
+* Click on *Display token* link, and copy the command under  *Log in with this token*. This will look like this
+[source,shell script]
+----
+oc login --token=<token> --server=<server>
+----
+
+* Clone the ansible scripts as follows in an appropriate folder in your local environment
+
+[.console-input]
+[source,shell script]
+----
+git clone <TBC>
+----
+
+Let's walk te. Ensure that the ansible playbook is deployed without errors
+
+[.console-input]
+[source,shell script]
+----
+<TBC> ansible-playbook playbook.yml
+----
+
+* This is the output you get from the above ansible command:
+
+[example]
+----
+PLAY RECAP ****************************************************************************************
+<TBC>
+----
+
+That's it! You are set to try out this Solution Pattern! ｡◕‿◕｡
+
+=== Personalize the instructions
+
+To personalize the rest of the instructions to your OpenShift enviroment, 
+
+* At the top-right of this page enter 
+**  *subdomain* to match your OpenShift cluster under the *Your Workshop Environment* section 
+* Press enter or click on the Set button
+* The menubar and the rest of this walkthrough guide will be updated with the username and subdomain as shown below
+
+[NOTE]
+=====
+The subdomain would look something like this `apps.cluster-name.guid.subdomain.myopenshift.com`
+=====
+
+== Walkthrough guide
+
+=== Step 1: Product Manager - Monitoring System
+The Product Manager seamlessly integrates customer feedback from the live online retail e-commerce website into the chat monitoring system, enabling timely and proactive responses
+
+
+==== Solution:
+
+. Sign in to the Smart Retail Application using the credentials for user 'asilva' to submit feedback for the clothing product, adhering to the details provided below:
+
++
+****
+[upperalpha]
+
+.. Find the login details for accessing Smart Retail Application below:
+... *Web Url:* https://globex-web-sentiment-analysis.%SUBDOMAIN%[window=_blank]
+... *Username:* asilva
+... *Password:* openshift
+
++
+.Smart Retails Main Page
+image::01_coolstore_login.jpg[login, 640]
+
++
+.Smart Retails Login Page
+image::01_coolstore_login_creds.jpg[login, 640]
+****
+
+
+. You have the option to share feedback for the Smart Retail Application product, following the details provided below:
+
++
+****
+[upperalpha]
+
+.. Click on `Coolstore` tab from the top.
++
+.Smart Retails Home Page
+image::01_coolstore_feedback-1.jpg[Review, 640]
+
+.. Click on `QUARKUS T-SHIRT`.
++
+.Smart Retails Products Page
+image::01_coolstore_feedback-2.jpg[Review, 640]
+
+.. Type something good as feedback in the review box then click `Submit Review` button.
++
+.Smart Retails Review Page
+image::01_coolstore_feedback-3.jpg[Review, 640]
+****
+
+
+. Access the Event-driven Ansible console to observe the seamless triggering of the Ansible Controller Job Template upon submitting feedback in the Smart Retail Application. Refer to the details provided below for a comprehensive view of this process:
+
++
+****
+[upperalpha]
+
+.. Find the login details for accessing Event-driven Ansible below:
+... *Event-driven Ansible:* {eda_controller_web_url}[window=_blank]
+... *Username:* {eda_controller_admin_user}
+... *Password:* {eda_controller_admin_password}
++
+.Event-driven Ansible Login Page
+image::03_eda_login.jpg[Event-driven Ansible, 400]
+
+.. Navigate to 'Rulebook Activations' and observe that the 'push-favourable-feedback' Fire count has increased by 1. This indicates the successful triggering of the specified rulebook activation. Your attention to this metric is crucial for monitoring the feedback integration process effectively.
++
+.Event-driven Ansible Rulebook Activations Page
+image::03_eda_favourable_trigger.jpg[Event-driven Ansible, 640]
+
+.. Access 'push-favourable-feedback' rulebook activations, then click on 'History' to review the log history and obtain a detailed list of activities and events. This will provide valuable insights into the execution and outcomes associated with this rulebook activation.
++
+.Event-driven Ansible Rulebook Activations History Page
+image::03_eda_favourable_trigger_history-1.jpg[Event-driven Ansible, 640]
+
+.. Select the latest entry 'X - push-favourable-feedback' to access and review the triggered logs. Take a moment to observe the log details, as they provide valuable information about the events and actions initiated during the execution of this rulebook activation.
++
+.Event-driven Ansible Rulebook Activations History Logs
+image::03_eda_favourable_trigger_history-2.jpg[Event-driven Ansible, 640]
+
+****
+
+
+. Log in to the Automation Controller to observe the job triggered by Event-driven Ansible upon submitting feedback. The Automation Controller job is designed to post formatted feedback in RocketChat. This feature ensures that the product manager can efficiently monitor feedback and take timely actions as needed. Refer to the details provided below for a comprehensive overview of this integration process.
+
++
+****
+[upperalpha]
+
+.. Find the login details for accessing Automation Controller below:
+... *Automation Controller:* {aap_controller_web_url}[window=_blank]
+... *Username:* {aap_controller_admin_user}
+... *Password:* {aap_controller_admin_password}
+
++
+.Automation Controller Login Page
+image::04_controller_login-1.jpg[Automation_Controller,350]
+
+.. Navigate to 'Jobs' and observe the latest executed job, identified as 'X - push-favourable-feedback.' This allows you to review the details of the most recent execution, providing insights into the actions taken as a result of the triggered event.
++
+.Automation Controller Jobs Page
+image::04_controller_job-1.jpg[Automation_Controller,640]
+
+.. Select 'X - push-favourable-feedback' to view and analyze the logs associated with this specific job. By examining the logs, you can gain a deeper understanding of the processes and actions carried out during the execution of this particular task.
++
+.Automation Controller Jobs Details
+image::04_controller_job-2.jpg[Automation_Controller,640]
+
+****
+
+. Access the RocketChat monitoring system to view the latest message posted by the Automation Controller. The details are provided below, offering insights into the formatted feedback generated by the system:
+
+* Message Source: Smart Retail Application
+* Message Triggered by: Event-driven Ansible
+* Message Posted by: Automation Controller
+* Content: [_USER SENTIMENT: positive, PRODUCT_CATEGORY: clothing, PRODUCT_ID: 329299, PRODUCT_NAME: Quarkus T-shirt, USER NAME: Addison Silva, REGION: USA, REVIEW: This good product, SCORE: 2_]
+
++
+This allows for convenient monitoring by the product manager, facilitating timely actions based on the received feedback.
+
++
+****
+[upperalpha]
+
+.. Find the login details for accessing RocketChat below:
+... *RocketChat Url:* {rocketchat_url}[window=_blank]
+... *Username:* pm_clothing
+... *Password:* {rocketchat_admin_password}
+
++
+.RocketChat Login page
+image::05_rocketchat_login-1.jpg[Rocketchat, 640]
+
+.. Navigate to the #clothing channel and review the new message that contains the original feedback, along with additional product details. This comprehensive information is designed to assist the product manager in monitoring the products effectively. Insights provided in the message contribute to informed decision-making and proactive actions based on customer feedback.
++
+.RocketChat Channels
+image::05_rocketchat_login-2.jpg[Rocketchat, 640]
+
+****
+
+==== Summary:
+
+In this step, the Product Manager adeptly integrates customer feedback from the live online retail e-commerce website into the chat monitoring system, fostering a seamless process for timely and proactive responses. This harmonized approach ensures a dynamic and customer-focused engagement strategy.
+
+*Kindly proceed to the next page as we delve into the seamless integration of the ChatOps system with Event-Driven Ansible.* 
+
+
+=== Step 2: Admin - Connecting ChatOps
+
+As an administrator, streamlining the integration of the ChatOps system with Event-Driven Ansible Architecture proves to be a seamless process. This integration offers a significant advantage for product managers, enabling them to effortlessly issue commands directly from the chat system. This functionality empowers product managers to swiftly trigger changes for specific categories, such as applying discounts or disabling a particular category on the online retail website.
+
+
+==== Solution:
+. Open Visual Studio Code to explore and gain a better understanding of the Ansible playbooks and Event-driven Ansible rulebooks utilized in the 'Solution Addressing The Challenges'.
++
+****
+[upperalpha]
+.. Find the login details for accessing Visual Studio Code below:
+... *Vscode Console Url:* {codeserver_url}[window=_blank]
+... *Password:* {codeserver_password}
++
+.VScode Login Page
+image::07_vscode_login.jpg[VScode, 640]
+
+.. Navigate to the 'event-driven-ansible-and-chatops' directory, then expand the 'playbooks' directory. Click on 'chatops-action.yml' to explore the playbook, which will be used to create a job template in the Automation Controller. The template will be triggered by Event-driven Ansible, executing actions on a product when messages are posted by the product manager in RocketChat.
++
+.VScode Dashboard Page
+image::07_vscode_playbook-1.jpg[VScode, 640]
+
+
+.. Head to the 'event-driven-ansible-and-chatops' directory, then expand the 'rulebooks' directory. Click on 'rocketchat-trigger.yml' to delve into the rulebook. This rulebook will be instrumental in creating a Rulebook activation in Event-driven Ansible. When messages are posted by the product manager in RocketChat, this activation will, in turn, trigger the Automation Controller job template.
++
+.VScode Dashboard Page
+image::07_vscode_rulebook-1.jpg[VScode, 640]
+****
+
+. Access the Automation Controller to create a Job Template that facilitates the execution of actions on products within the Smart Retail Application. This should be triggered by messages posted by the product manager in RocketChat. The necessary details are provided below:
+
++
+****
+[upperalpha]
+.. Find the login details for accessing Automation Controller below:
++
+TIP: You can skip the login process if you're already signed in.
+
+... *Automation Controller:* {aap_controller_web_url}[window=_blank]
+... *Username:* {aap_controller_admin_user}
+... *Password:* {aap_controller_admin_password}
+
+.. Navigate to *Templates* and proceed to create a new template with the following details:
+
+... *Name:* chatops-action
+... *Job Type:* Run
+... *Inventory:* Demo Inventory
+... *Project:* event-driven-ansible-and-chatops
+... *Playbook:* playbooks/chatops-action.yml
+... *Credentials:*
+  .... *Selected Category:* OpenShift or Kubernetes API Bearer Token
+  .... *Select:* OpenShift Credentials
+... *Variables: Select Checkbox:* [x] Prompt on Launch
+... *Variables:* Kindly copy and paste the provided variables into the YAML format below for ease of use and implementation.
++
+====
+eda_chatops_retail_db_host: globex-db.globex.svc.cluster.local
+
+eda_chatops_retail_db_name: globex
+
+eda_chatops_retail_db_password: globex
+
+eda_chatops_retail_db_username: globex
+
+rocketchat_url: {rocketchat_url}
+
+rocketchat_auth_token: {rocketchat_auth_token}
+
+rocketchat_user_id: {rocketchat_user_id}
+====
+
+... Click *Save* button to save.
+
++
+.Automation Controller Job Template Page
+image::04_controller_job_template-1.jpg[Automation Controller, 640]
+****
+
+
+. Access Event-driven Ansible to configure Rulebook Activation, facilitating the automatic triggering of an Ansible Controller Job Template upon submitting feedback in the Smart Retail Application. Please refer to the details provided below:
++
+****
+[upperalpha]
+
+.. Find the login details for accessing Event-driven Ansible below:
++
+TIP: You can skip the login process if you're already signed in.
+
+... *Event-driven Ansible:* {eda_controller_web_url}[window=_blank]
+... *Username:* {eda_controller_admin_user}
+... *Password:* {eda_controller_admin_password}
+
+.. Navigate to Rulebook Activation and proceed to add a new rulebook following the details provided below:
+... *Name:* rocketchat-trigger
+... *project:* AI Based Smart Retail
+... *Rulebook:* rocketchat-trigger.yml
+... *Decision environment:* de-kafka-scram
+... *Restart policy:* On failure
+... *Rulebook activation enabled?:* Enabled
+... Click *Create rulebook activation* to create rulebook
+
++
+.Event-driven Ansible Rulebook Activations Page
+image::03_eda_rulebook-1.jpg[Event-driven Ansible, 640]
+
++
+.Event-driven Ansible Create Rulebook Activation Page
+image::03_eda_rulebook-2.jpg[Event-driven Ansible, 640]
+****
+
+
+. Access the OpenShift Console to configure routing for the Event-driven Ansible rulebook activation created in the previous step. Refer to the details provided below:
+
++
+****
+[upperalpha]
+
+.. Find the login details for accessing Openshift Console below:
+... *Console URL:* {openshift_console_url}[window=_blank]
+... *Username:* {openshift_cluster_admin_username}
+... *Password:* {openshift_cluster_admin_password}
+
++
+.OpenShift Console Login Page
+image::06_openshift_login-1.jpg[OpenShift, 560]
+
++
+.OpenShift Console Login Page
+image::06_openshift_login-2.jpg[OpenShift, 600]
+
+
+.. Navigate to the 'Networking' section, select 'Route,' change the project to 'aap,' and then click on the 'Create Route' button to configure the Event-driven Ansible route.
+
++
+.OpenShift Route Page
+image::06_openshift_route-1.jpg[OpenShift, 640]
+
+.. To set up an Event-driven Ansible route for the 'rocketchat-trigger' rulebook, follow the details provided below:
+... *Name:* eda-trigger
+... *Service:* activation-job-X-X-5000
+... *Target port:* 5000 -> 5000 (TCP)
+... Click Create button to save.
+
++
+.OpenShift Route Page
+image::06_openshift_route-2.jpg[OpenShift, 600]
+
+.. Copy the 'eda-trigger' route, which will serve as the webhook URL for use in RocketChat.
++
+.OpenShift Route Page
+image::06_openshift_route-3.jpg[OpenShift, 640]
+****
+
+
+
+
+. Access RocketChat to establish a webhook for Event-driven Ansible, following the details provided below:
++
+****
+[upperalpha]
+
+.. Find the login details for accessing RocketChat below:
++
+IMPORTANT: Kindly log out and log back in as an admin if you are currently signed in. This will ensure that you have the appropriate access and privileges for the next steps
+
+... *RocketChat Url:* {rocketchat_url}[window=_blank]
+... *Username:* admin
+... *Password:* {rocketchat_admin_password}
+
+.. Navigate to administration.
++
+.RocketChat Administration Page
+image::05_rocketchat_admin-1.jpg[RocketChat, 640]
+
+.. Navigate to the 'Integration' section, and click on the 'New Integration' button to create a webhook for outgoing messages.
++
+TIP: If nothing appears upon the initial click, try clicking on other links and then return to the 'Integration' section to refresh and display the content.
+
++
+.RocketChat Webhook Page
+image::05_rocketchat_webhook-1.jpg[RocketChat, 640]
+
+
+.. Select Outgoing WebHook.
++
+.RocketChat Webhook Page
+image::05_rocketchat_webhook-2.jpg[RocketChat, 640]
+
+.. Select Message Sent from drop down list.
++
+.RocketChat Webhook Page
+image::05_rocketchat_webhook-3.jpg[RocketChat, 640]
+
+
+.. Please provide the following details:
+... *Enabled:* True
+... *Name (optional):* Event-driven Ansible and ChatOps
+... *Channel:* #clothing,#utensils
+... *Trigger Words:* update,continue,discontinue
+... *URLs:* <Paste *eda-trigger* route created in openshift>
+... *Impersonate User:* True
+... *Post as:* admin
+... Keep the remaining settings as default.
+... Save your changes by clicking on the 'Save Changes' button in the upper right corner.
+
++
+.RocketChat Webhook Page
+image::05_rocketchat_webhook-4.jpg[RocketChat, 640]
+****
+
+==== Summary:
+As an administrator, seamlessly integrating the ChatOps system with Event-Driven Ansible Architecture proves advantageous for product managers. This streamlined process empowers them to issue commands directly from the chat system, enabling swift changes for specific categories, from applying discounts to disabling particular sections on the online retail website.
+
+*Let's move forward to the next page where we'll delve into the analysis of live messages and the timely execution of actions through ChatOps commands*
+
+=== Step 3: Product Manager - Constructive Decisions
+
+As a Product Manager, leveraging data points extracted from the Grafana dashboard provides a comprehensive view of both the overall and historical sentiments of customers within specific product categories. By integrating real-time feedback from our chat system, we gain valuable insights into the sentiments surrounding specific products in those categories. This holistic approach equips us to make informed and constructive decisions, such as strategically discounting products or considering the temporary disabling of certain items. This dynamic combination of historical trends and live feedback empowers us to respond effectively to customer preferences, ensuring a more responsive and customer-centric decision-making process.  
+
+
+==== Solution
+
+
+. Sign in to the Smart Retail Application using the credentials for user 'asilva' to submit feedback for the clothing product, adhering to the details provided below:
+
++
+****
+[upperalpha]
+
+.. Find the login details for accessing Smart Retail Application below:
++
+TIP: You can skip the login process if you're already signed in.
+
+... *Web Url:* https://globex-web-sentiment-analysis.%SUBDOMAIN%[window=_blank]
+... *Username:* asilva
+... *Password:* openshift
+
+
+.. Navigate to the 'Coolstore' tab located at the top of the page.
+
+
+.. Choose the 'T-shirt' and kindly share your thoughts by providing feedback `This is over priced T-shirt` in the designated box.
++
+.Smart Retail Application 
+image::01_coolstore_feedback-4.jpg[coolstore, 640]
+
+****
+
+
+
+. Access the Grafana dashboard to monitor historical sentiments for the product. Please log in to view and analyze sentiment trends over time.
++
+****
+.. Find the login details for accessing RocketChat below:
+... *Grafana URL:* https://grafana-route-influxdb-project.%SUBDOMAIN%[window=_blank]
+... *Username:* admin
+... *Password:* {gitea_admin_password}
++
+.Grafana Login page
+image::08_grafana_login.jpg[Grafana, 400]
+
+
+.. Access the GLOBEX Sentiment Analysis Dashboard by searching for it in the search bar.
++
+.Grafana Dashboard page
+image::08_grafana_dashboard-1.jpg[Grafana, 640]
+
+.. Take a moment to observe the sentiments associated with the clothing category.
++
+.Grafana Dashboard page
+image::08_grafana_dashboard-2.jpg[Grafana, 640]
+
+****
+
+
+. Access the RocketChat monitoring system to view the latest message posted by the Automation Controller. The details are provided below, offering insights into the formatted feedback generated by the system:
+
++
+****
+[upperalpha]
+
+.. Find the login details for accessing RocketChat below:
++
+IMPORTANT: Kindly log out and log back in as pm_clothing if you are currently signed in. This will ensure that you have the appropriate access and privileges for the next steps
+
+... *RocketChat Url:* {rocketchat_url}[window=_blank]
+... *Username:* pm_clothing
+... *Password:* {rocketchat_admin_password}
+
+.. Navigate to the #clothing channel and review the new message that contains the original feedback, along with additional product details.
+* Message Content:
+** *USER SENTIMENT*: negative,
+** *PRODUCT_CATEGORY*: clothing, 
+** *PRODUCT_ID*: 329299, 
+** *PRODUCT_NAME*: Quarkus T-shirt, 
+** *USER NAME*: Addison Silva, 
+** *REGION*: USA, 
+** *REVIEW*: his is over priced T-shirt, 
+** *SCORE:* -1
++
+.RocketChat Channel Page
+image::05_rocketchat_channel-1.jpg[RocketChat, 640]
+****
+
+. As the product manager, your integral role encompasses active engagement with customer feedback and sentiment analysis. After carefully reviewing messages and closely monitoring sentiments, you hold the authority to take decisive action on the product. Leverage the insights gained to craft and send an action message in the #clothing channel, addressing specific actions, production ID, and optionally, price, based on the sentiments observed. Your proactive involvement plays a pivotal role in shaping a positive and customer-centric experience.
+
++
+****
+.. As the product manager, after reviewing the negative feedback, you've decided to reduce the price of the T-shirt. To implement this change, you can directly post the command in the #clothing channel as follows: `update,329299,5`. This command will trigger Event-driven Ansible to execute an Automation Controller job template, updating the price of the product in the Smart Retail Application.
++
+[NOTE]
+====
+Here are the three ChatOps action commands available to the Product Manager:
+
+* *Update Price Command:* To update the price of a product, use the command.
++
+----
+update,ProductID,NewPrice
+----
+
+* *Block Product Command:* To block a specific product, issue the command in the respective channel.
++
+----
+discontinue,ProductID
+----
+
+* *Unblock Product Command:* To unblock a specific product, issue the command in the respective channel.
++
+----
+continue,ProductID
+----
+
+Replace ProductID with the product identifier and NewPrice with the updated price for the product
+
+These commands enable the Product Manager to efficiently and directly take actions on products based on the insights gathered from the ChatOps system.
+====
+
+.. Kindly wait for the acknowledgement from Event-driven Ansible to ensure the successful execution of the ChatOps command. This confirmation will provide assurance that the requested action has been carried out as intended.
++
+.RocketChat Channel Page
+image::05_rocketchat_channel-2.jpg[RocketChat, 640]
+****
+
+
+. Navigate to the Event-driven Ansible console and witness the smooth triggering of the Ansible Controller Job Template. This activation occurs when the product manager posts a chatops action in the RocketChat #clothing channel. For detailed insights, please refer to the information provided below:
+
++
+.Optional tasks to verify
+****
+[upperalpha]
+
+.. Find the login details for accessing Event-driven Ansible below:
++
+TIP: You can skip the login process if you're already signed in.
+
+... *Event-driven Ansible:* {eda_controller_web_url}[window=_blank]
+... *Username:* {eda_controller_admin_user}
+... *Password:* {eda_controller_admin_password}
+
+
+.. Head to 'Rulebook Activations' and take note of the 'rocketchat-trigger' Fire count, which should reflect an increase of 1. This signifies the successful triggering of the designated rulebook activation. Monitoring this metric is essential for an effective overview of the RocketChat ChatOps integration process.
+
+****
+
+
+. Access the Automation Controller to observe the job triggered by Event-driven Ansible upon posting the ChatOps action in RocketChat. The Automation Controller job is specifically crafted to update the Smart Retail Application as per the action instruction provided. This functionality ensures that the product manager can efficiently and promptly take necessary actions. For a detailed understanding of this integration process, please refer to the information provided below.
+
++
+.Optional tasks to verify
+****
+[upperalpha]
+
+.. Find the login details for accessing Automation Controller below:
++
+TIP: You can skip the login process if you're already signed in.
+
+... *Automation Controller:* {aap_controller_web_url}[window=_blank]
+... *Username:* {aap_controller_admin_user}
+... *Password:* {aap_controller_admin_password}
+
+
+.. Head to 'Jobs' and take note of the latest executed job labeled 'X - chatops-action.' This allows you to review the details of the most recent execution, offering insights into the specific actions taken as a result of the triggered event.
+
+****
+
+
+. Return to the Smart Retail Application, refresh the page, and locate the same T-shirt to verify any updated price. Refer to the details provided below for accurate information:
+
++
+****
+[upperalpha]
+.. Go to the 'Coolstore' tab at the top of the page and find the same T-shirt to confirm that the price has been successfully updated..
++
+.Smart Retail Appllicaton Page
+image::01_coolstore_action-1.jpg[coolstore, 640]
+
+****
+
+=== Conclusion
+In conclusion, as a Product Manager, the amalgamation of comprehensive data insights from the Grafana dashboard provides a robust understanding of overall and historical customer sentiments within specific product categories. The integration of real-time feedback from our chat system enhances our ability to discern sentiments surrounding specific products. This dynamic combination equips us to make informed decisions, strategically implementing discounts or temporarily disabling items as needed. The synergy between historical trends and live feedback ensures our responsiveness to evolving customer preferences, fostering a customer-centric decision-making process.
+
+
+=== Add on Section:
+
+Feel free to initiate and monitor the entire process for the utensils product. Below are the necessary details to ensure a smooth and comprehensive observation:
+
+
+==== Solution:
+
+. Re-visit the Smart Retail application console, select any utensils product, and share your thoughts, whether positive or constructive, about the product.
++
+****
+[upperalpha]
+
+.. Find the login details for accessing Smart Retail Application below:
++
+TIP: You can skip the login process if you're already signed in.
+
+... *Web Url:* https://globex-web-sentiment-analysis.%SUBDOMAIN%[window=_blank]
+... *Username:* asilva
+... *Password:* openshift
+****
+
+. Access the Grafana dashboard to monitor historical sentiments for the utensils product.
++
+****
+.. Find the login details for accessing RocketChat below:
++
+TIP: You can skip the login process if you're already signed in.
+
+... *Grafana URL:* https://grafana-route-influxdb-project.%SUBDOMAIN%[window=_blank]
+... *Username:* admin
+... *Password:* {gitea_admin_password}
+****
+
+. Access the RocketChat monitoring system to view the latest message posted by the Automation Controller.
++
+****
+[upperalpha]
+
+.. Find the login details for accessing RocketChat below:
++
+IMPORTANT: Please logout and re-login as pm_utensils if you're already signed in.
+
+... *RocketChat Url:* {rocketchat_url}[window=_blank]
+... *Username:* pm_utensils
+... *Password:* {rocketchat_admin_password}
+
+.. Navigate to the #utensils channel and review the new message.
+****
+
+. As the product manager overseeing Utensils, following a thorough review of the feedback, Try to execute the necessary ChatOps commands in the #utensils channel for the product.
+
++
+****
+[NOTE]
+====
+Here are the three ChatOps action commands available to the Product Manager:
+
+* *Update Price Command:* To update the price of a product, use the command.
++
+----
+update,ProductID,NewPrice
+----
+
+* *Block Product Command:* To block a specific product, issue the command in the respective channel.
++
+----
+discontinue,ProductID
+----
+
+* *Unblock Product Command:* To unblock a specific product, issue the command in the respective channel.
++
+----
+continue,ProductID
+----
+
+Replace ProductID with the product identifier and NewPrice with the updated price for the product
+
+====
+****
+
+
+. Navigate to the Event-driven Ansible console and witness the smooth triggering of the Ansible Controller Job Template. 
++
+****
+[upperalpha]
+
+.. Find the login details for accessing Event-driven Ansible below:
++
+TIP: You can skip the login process if you're already signed in.
+
+... *Event-driven Ansible:* {eda_controller_web_url}[window=_blank]
+... *Username:* {eda_controller_admin_user}
+... *Password:* {eda_controller_admin_password}
+****
+
+
+. Access the Automation Controller to observe the job triggered by Event-driven Ansible upon posting the ChatOps action in RocketChat. 
++
+****
+[upperalpha]
+
+.. Find the login details for accessing Automation Controller below:
++
+TIP: You can skip the login process if you're already signed in.
+
+... *Automation Controller:* {aap_controller_web_url}[window=_blank]
+... *Username:* {aap_controller_admin_user}
+... *Password:* {aap_controller_admin_password}
+****
+
+
+. Return to the Smart Retail Application, refresh the page, and locate the same utensil product to verify.
+
