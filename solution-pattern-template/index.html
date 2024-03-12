@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Solution Patterns: Template Name :: Solution Patterns for Cloud Native Architectures</title>
+    <title>Solution Patterns: Event Driven Ansible and ChatOps :: Solution Patterns for Cloud Native Architectures</title>
     <link rel="canonical" href="https://redhat-solution-patterns.github.io/solution-patterns/solution-pattern-template/index.html">
-    <link rel="next" href="01-pattern.html#_the_story_behind_this_solution_pattern">
+    <link rel="next" href="02-architecture.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
 <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
@@ -58,7 +58,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html" class=" query-params-link">Template Tutorial</a></h3>
+    <h3 class="title"><a href="index.html" class=" query-params-link">Event Driven Ansible and ChatOps</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -70,16 +70,10 @@
     <a class="nav-link" href="#use-cases">1.1 Use cases</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="01-pattern.html#_the_story_behind_this_solution_pattern">1.2 The story behind this solution pattern</a>
+    <a class="nav-link" href="#_the_story_behind_this_solution_pattern">1.2 The story behind this solution pattern</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="01-pattern.html#_the_solution">1.3 The solution</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#_content_overview">1.4 Content Overview</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#_content_overview">1.5 Explore more solution patterns</a>
+    <a class="nav-link" href="#_the_solution">1.3 The solution</a>
   </li>
 </ul>
   </li>
@@ -123,28 +117,10 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="04-workshop.html">4. Workshop</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="04-workshop.html#_installing_the_workshop_environment">4.1. Installing the workshop environment</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <span class="nav-text">xref:04-workshop.adoc#_before_getting_started[4.2. Pre-requisites</span>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="04-workshop.html#install_wksp_details">4.3. Installing the environment</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="04-workshop.html#deliver_wksp">4.4. Delivering the workshop</a>
-  </li>
-</ul>
+    <a class="nav-link" href="04-developer-resources.html">4. Developer Resources</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">5. Other Red Hat Solution Patterns</a>
+    <span class="nav-text"><a href="https://redhat-solution-patterns.github.io/solution-patterns/patterns.html" target="_blank" rel="noopener">5. Other Red Hat Solution Patterns</a></span>
   </li>
 </ul>
   </li>
@@ -153,12 +129,12 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Template Tutorial</span>
+    <span class="title">Event Driven Ansible and ChatOps</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <span class="title">Template Tutorial</span>
+      <span class="title">Event Driven Ansible and ChatOps</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="index.html">master</a>
@@ -173,83 +149,25 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="index.html" class="home-link is-current"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">Template Tutorial</a></li>
+    <li><a href="index.html">Event Driven Ansible and ChatOps</a></li>
     <li><a href="index.html">1. Home page</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-solution-patterns/solution-pattern-website-template/edit/main/documentation/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/jayachristina/rh-soln-pattern-eda-and-chatops/edit/main/documentation/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Solution Patterns: Template Name</h1>
+<h1 class="page">Solution Patterns: Event Driven Ansible and ChatOps</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A brief introduction of this solution pattern.</p>
+<p>ChatOps is the use of chat clients, chatbots and other real-time communication tools to facilitate software development and IT operations tasks. ChatOps is designed for fast and simple instant messaging between development team members.</p>
 </div>
-<h2 id="_content_overview" class="discrete">Content overview</h2>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset1_a-href-1-solution-pattern-a"></a><a href="#">1. Solution Pattern</a></p>
-</li>
-<li>
-<p><a id="tabset1_a-href-02-architecture-html-class-xref-page-2-architecture-a"></a><a href="02-architecture.html" class="xref page">2. Architecture</a></p>
-</li>
-<li>
-<p><a id="tabset1_a-href-03-demo-html-class-xref-page-3-demonstration-a"></a><a href="03-demo.html" class="xref page">3. Demonstration</a></p>
-</li>
-<li>
-<p><a id="tabset1_a-href-04-workshop-html-class-xref-page-4-workshop-a"></a><a href="04-workshop.html" class="xref page">4. Workshop</a></p>
-</li>
-<li>
-<p><a id="tabset1_a-href-5-developer-resources-a"></a><a href="#">5. Developer Resources</a></p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset1_a-href-1-solution-pattern-a">
 <div class="paragraph">
-<p><a href="#use-cases">1. Use cases</a><br>
-<a href="01-pattern.html#_the_story_behind_this_solution_pattern" class="xref page">2. The story behind this solution pattern</a><br>
-<a href="#use-cases">3. Use cases</a><br>
-<a href="01-pattern.html#_the_solution" class="xref page">4. The solution</a><br>
-<a href="#content_overview">5. Content overview</a><br>
-<a href="#_explore_more_solution_patterns">6. Explore more solution patterns</a></p>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset1_a-href-02-architecture-html-class-xref-page-2-architecture-a">
-<div class="paragraph">
-<p><a href="02-architecture.html#_common_challenges" class="xref page">1. Common challenges</a><br>
-<a href="02-architecture.html#tech_stack" class="xref page">2. Technology stack</a><br>
-<a href="02-architecture.html#in_depth" class="xref page">3. An in-depth look at the solution&#8217;s architecture</a><br>
-<a href="02-architecture.html#more_tech" class="xref page">4. More about the technology stack</a></p>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset1_a-href-03-demo-html-class-xref-page-3-demonstration-a">
-<div class="paragraph">
-<p><a href="03-demo.html#_demonstration" class="xref page">1. Demonstration</a><br>
-<a href="03-demo.html#_walkthrough_guide" class="xref page">2. Walkthrough guide</a></p>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset1_a-href-04-workshop-html-class-xref-page-4-workshop-a">
-<div class="paragraph">
-<p><a href="04-workshop.html#_installing_the_workshop_environment" class="xref page">1. Installing the workshop environment</a><br>
-<a href="04-workshop.html#_delivering_the_workshop" class="xref page">2. Delivering the workshop</a></p>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset1_a-href-5-developer-resources-a">
-<div class="paragraph">
-<p><a href="https://developers.redhat.com/about" target="_blank" rel="noopener">1. Register</a> for Red Hat developers subscription to get access to Red Hat products for personal use at no cost<br>
-<a href="https://developers.redhat.com/products/openshift/overview" target="_blank" rel="noopener">2. Red Hat OpenShift</a><br>
-<a href="https://developers.redhat.com/products/quarkus/overview" target="_blank" rel="noopener">3. Quarkus</a><br></p>
-</div>
-</div>
-</div>
+<p>References:
+* <a href="https://www.techtarget.com/searchitoperations/definition/ChatOps" target="_blank" rel="noopener">What is ChatOps, TechTarget</a></p>
 </div>
 </div>
 </div>
@@ -262,12 +180,27 @@
 <div class="ulist">
 <ul>
 <li>
-<p>xyz</p>
+<p>Automation: Provides real-time detection and execution of commands as well as console updates.</p>
 </li>
 <li>
-<p>xyz</p>
+<p>Collaboration between between teams and departments.</p>
+</li>
+<li>
+<p>Engagement: Builds and sustains distributed team culture to align communication and decision-making.</p>
+</li>
+<li>
+<p>Productivity: Enhances business processes via real-time information provision.</p>
+</li>
+<li>
+<p>Security and compliance: Provides current and historical task documentation to enhance safety and regulation.</p>
+</li>
+<li>
+<p>Transparency: Aligns communication and documentation project statuses.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Ref: <a href="https://www.ibm.com/blog/benefits-of-chatops/" target="_blank" rel="noopener">ChatOps, IBM</a></p>
 </div>
 </div>
 </div>
@@ -275,7 +208,63 @@
 <h2 id="_the_story_behind_this_solution_pattern"><a class="anchor" href="#_the_story_behind_this_solution_pattern"></a><a class="link" href="#_the_story_behind_this_solution_pattern">2. The story behind this solution pattern</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A description of the story that was used to build the demo and architectures of this SP.</p>
+<p>This solution pattern extends Globex, a fictional retail store that has undergone modernization and already embraces Event-driven Ansible, Automation Controller, and Apache Kafka as a streaming platform for customer feedback on their eCommerce website.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Customer Sentiments Analysis:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Customer sentiments are analyzed through an intelligent application.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Event Trigger with Event-driven Ansible and Automation Controller:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>An event is triggered using Event-driven Ansible and Automation Controller.</p>
+</li>
+<li>
+<p>Filtered messages are dispatched to respective category Product Managers for review on an in-house Chat System.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Feedback System and Grafana Dashboard:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Product reviews from the feedback system are visualized on a Grafana dashboard.</p>
+</li>
+<li>
+<p>Data-driven intelligent decisions are made based on this feedback.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>ChatOps System Integration:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>The ChatOps system is utilized to enact actions like blocking a product or offering discounts.</p>
+</li>
+<li>
+<p>An event is triggered using both Event-driven Ansible and Ansible Controller to implement the requested logic or operation through the chat system.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This integrated approach enables Globex to harness cutting-edge technologies for prompt feedback analysis, informed decision-making, and seamless interaction with ChatOps systems, fostering efficient product management and enhancing customer engagement.</p>
 </div>
 </div>
 </div>
@@ -283,70 +272,94 @@
 <h2 id="_the_solution"><a class="anchor" href="#_the_solution"></a><a class="link" href="#_the_solution">3. The Solution</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a summary of the solution</p>
+<p>This solution is built on an Event Driven Ansible architecture leveraging Apache Kafka and ChatOps as powerful data streaming platforms to initiate events based on filters or chat commands. The process for handling customer product reviews is as follows:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Customer Review Processing:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Customer product reviews are submitted and pushed to a Kafka topic.</p>
+</li>
+<li>
+<p>The data undergoes moderation for foul/abusive language through a Review Moderation Service and is further analyzed for sentiment using a Sentiment Analysis Service (in this case, focusing solely on sentiment analysis).</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p><strong>Serverless Eventing Architecture:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift Serverless Eventing architecture, utilizing brokers, sources, and triggers, facilitates the smooth flow of data across different systems, ensuring scalability and full decoupling.</p>
+</li>
+</ul>
 </div>
-<div class="sect1">
-<h2 id="_explore_more_solution_patterns"><a class="anchor" href="#_explore_more_solution_patterns"></a><a class="link" href="#_explore_more_solution_patterns">4. Explore more solution patterns</a></h2>
-<div class="sectionbody">
+</li>
+<li>
+<p><strong>Data Persistence:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Moderated and suitable reviews are stored in the Globex Product Review Database (PostgreSQL).</p>
+</li>
+<li>
+<p>Sentiment analysis scores are persisted in a Time Series Database (InfluxDB) for creating a Grafana Dashboard to track category performance over time.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Event-driven Ansible Playbooks:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Event Driven Ansible, triggered by sentiments and feedback filters, executes playbooks for specific actions.</p>
+</li>
+<li>
+<p>Messages are then sent to the respective Product Manager&#8217;s chat room through ChatOps (Rocket Chat) System.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Real-time Decision-Making:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Product Managers can make real-time decisions by combining ChatOps messages with the Grafana real-time dashboard, using insights from the InfluxDB time series database.</p>
+</li>
+<li>
+<p>Decisions may include stopping a specific product, offering discounts, etc.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Command Execution through ChatOps:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Product Managers issue commands on the ChatOps system (Rocket Chat) for specific categories.</p>
+</li>
+<li>
+<p>This triggers an event captured by Event Driven Ansible, which runs the respective playbook to execute the command (disabling the product in the database or updating the discount).</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
 <div class="paragraph">
-<p>It&#8217;s time to boost your cloud-native application architectural design with bleeding-edge technology backed by open-source software. Explore the use cases and learn recommended solutions for each of these challenges:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Application Modernization</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://redhat-solution-patterns.github.io/solution-pattern-modernization-cdc/">Adopting Change Data Capture for stack modernization</a></p>
-</li>
-<li>
-<p><a href="https://redhat-solution-patterns.github.io/solution-pattern-enhancing-applications">Enhancing Applications with Application Services</a></p>
-</li>
-<li>
-<p><a href="https://redhat-solution-patterns.github.io/solution-pattern-apim-servicemesh/comprehensive-service-architecture">Comprehensive Service Architecture with API Management and Service Mesh</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>DevOps</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://redhat-solution-patterns.github.io/solution-pattern-multicloud-gitops-odf/">MultiCloud GitOps with ArgoCD, OpenShift Advanced Cluster Management and OpenShift Data Foundation</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Managed Openshift</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://redhat-solution-patterns.github.io/solution-pattern-modernize-with-rosa/solution-pattern-rosa/index.html">Accelerate time to value with Red Hat Openshift Service on AWS</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Intelligent Applications</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://redhat-solution-patterns.github.io/solution-pattern-sentiment-analysis">Building Sentiment Analysis with AIML and Kafka</a></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<p>In essence, this integrated approach empowers efficient and data-driven decision-making for product management, leveraging the capabilities of various technologies seamlessly.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="01-pattern.html#_the_story_behind_this_solution_pattern" class="query-params-link">1.2 The story behind this solution pattern</a></span>
+  <span class="next"><a href="02-architecture.html" class="query-params-link">2. Architecture</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
