@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Solution Pattern: Name Template :: Solution Patterns for Cloud Native Architectures</title>
+    <link rel="canonical" href="https://redhat-solution-patterns.github.io/solution-patterns/chatops/03-demo.html">
+    <link rel="prev" href="02-architecture.html">
+    <link rel="next" href="04-developer-resources.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://redhat.com" target="_blank"><img
+          src="../_/img/logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-solution-patterns.github.io/solution-patterns">Solution Patterns for Cloud Native Architectures</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+
+       
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solution Patterns</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Adopt Change Data Capture for <br/>stack modernization</a>
+            <a class="navbar-item" href="#">Edge-to-Cloud Pipelines</a>     <a class="navbar-item" href="#">Event driven architecture</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Other</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-gitops-patterns.io/">GitOps Solution Patterns</a>
+            <a class="navbar-item" href="https://hybrid-cloud-patterns.io/">Hybrid Cloud Solution Patterns</a>
+          </div>
+        </div>
+
+        <a class="navbar-item" target="_blank" href="https://www.redhat.com/en/products/middleware">Red Hat Application Services</a>
+
+        <a class="navbar-item" target="_blank" href="https://developers.redhat.com/middleware">Learn more</a>
+
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="chatops" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html" class=" query-params-link">Event Driven Ansible and ChatOps</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">1. Home page</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#use-cases">1.1 Use cases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#_the_story_behind_this_solution_pattern">1.2 The story behind this solution pattern</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#_the_solution">1.3 The solution</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-architecture.html">2. Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#tech_stack">2.1. Technology stack</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#in_depth">2.2. An in-depth look at the solution&#8217;s architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#tech_stack">2.3. More about the technology stack</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#_demonstration">3.1. Demonstration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#_run_the_demonstration">3.2. Run this demonstration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_before_getting_started">3.3. Pre-requisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_installing_the_demo">3.4. Installing the demo</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_walkthrough_guide">3.5. Walkthrough guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="04-developer-resources.html">4. Developer Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="https://redhat-solution-patterns.github.io/solution-patterns/patterns.html" target="_blank" rel="noopener">5. Other Red Hat Solution Patterns</a></span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Event Driven Ansible and ChatOps</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Event Driven Ansible and ChatOps</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Event Driven Ansible and ChatOps</a></li>
+    <li><a href="03-demo.html">3. See the Solution in Action</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/jayachristina/rh-soln-pattern-eda-and-chatops/edit/main/documentation/modules/ROOT/pages/03-demo.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Solution Pattern: Name Template</h1>
+<h1 id="_see_the_solution_in_action" class="sect0"><a class="anchor" href="#_see_the_solution_in_action"></a><a class="link" href="#_see_the_solution_in_action">See the Solution in Action</a></h1>
+<div class="sect1">
+<h2 id="_demonstration"><a class="anchor" href="#_demonstration"></a><a class="link" href="#_demonstration">1. Demonstration</a></h2>
+<div class="sectionbody">
+<div id="demo-video" class="paragraph">
+<p>In this video you can see xpto:</p>
+</div>
+<div class="videoblock">
+<div class="content">
+<iframe width="800" height="480" src="https://www.youtube.com/embed/3yULVMdqJ98?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, you can learn how to walkthrough this demo.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup_the_solution"><a class="anchor" href="#_setup_the_solution"></a><a class="link" href="#_setup_the_solution">2. Setup the solution</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To provision the demo you will perform the following steps - each of which are explained in detail in the next sections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Gain access to Red Hat OpenShift. This solution pattern has been tested on <a href="https://docs.openshift.com/container-platform/4.15/welcome/index.html" target="_blank" rel="noopener">OpenShift 4.15</a></p>
+</li>
+<li>
+<p>Ensure you have the tools <code>oc</code> and <code>ansible</code> installed in your local environment such as your laptop</p>
+</li>
+<li>
+<p>Access the OpenShift cluster with cluster-admin privileges</p>
+</li>
+<li>
+<p>Log in to OpenShift with <code>cluster-admin</code> role via cli</p>
+</li>
+<li>
+<p>Run the Ansible playbook</p>
+</li>
+<li>
+<p>Run a  bunch of scripts to deploy the Solution Pattern in your OpenShift cluster</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a><a class="link" href="#_pre_requisites">2.1. Pre-requisites</a></h3>
+<div class="paragraph">
+<p>Here is the list of tools you need in your local enviroment so that you can use the automated installation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/4.15/cli_reference/openshift_cli/getting-started-cli.html" target="_blank" rel="noopener">OpenShift CLI (oc client)</a></p>
+</li>
+<li>
+<p><a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html" target="_blank" rel="noopener">Ansible CLI </a> with <a href="https://docs.ansible.com/ansible/latest/collections/kubernetes/core/k8s_module.html" target="_blank" rel="noopener">Ansible kubernetes.core module</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To check if you have the cli tools, you can open your terminal and use following commands:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">oc version #openshift cli client
+ansible --version
+ansible-galaxy --version
+ansible-galaxy collection list #the list should include kubernetes.core</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you can&#8217;t see <code>kubernetes.core</code> collection listed, you can install it with <code>ansible-galaxy</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">ansible-galaxy collection install kubernetes.core</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_installing_the_demo"><a class="anchor" href="#_installing_the_demo"></a><a class="link" href="#_installing_the_demo">2.2. Installing the demo</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Login to your OpenShift cluster as cluster-admin (because a number of operators will need to be installed)</p>
+</li>
+<li>
+<p>Click on the username on the top right hand, and then click on <strong>Copy login command</strong>. This will open another tab and you will need to login again</p>
+</li>
+<li>
+<p>Click on <strong>Display token</strong> link, and copy the command under  <strong>Log in with this token</strong>. This will look like this</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc login --token=&lt;token&gt; --server=&lt;server&gt;</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Clone the ansible scripts as follows in an appropriate folder in your local environment</p>
+</li>
+</ul>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">git clone &lt;TBC&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s walk te. Ensure that the ansible playbook is deployed without errors</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">&lt;TBC&gt; ansible-playbook playbook.yml</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This is the output you get from the above ansible command:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>PLAY RECAP ****************************************************************************************
+&lt;TBC&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it! You are set to try out this Solution Pattern! ｡◕‿◕｡</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_personalize_the_instructions"><a class="anchor" href="#_personalize_the_instructions"></a><a class="link" href="#_personalize_the_instructions">2.3. Personalize the instructions</a></h3>
+<div class="paragraph">
+<p>To personalize the rest of the instructions to your OpenShift enviroment,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>At the top-right of this page enter</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>subdomain</strong> to match your OpenShift cluster under the <strong>Your Workshop Environment</strong> section</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Press enter or click on the Set button</p>
+</li>
+<li>
+<p>The menubar and the rest of this walkthrough guide will be updated with the username and subdomain as shown below</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The subdomain would look something like this <code>apps.cluster-name.guid.subdomain.myopenshift.com</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_walkthrough_guide"><a class="anchor" href="#_walkthrough_guide"></a><a class="link" href="#_walkthrough_guide">3. Walkthrough guide</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_step_1_product_manager_monitoring_system"><a class="anchor" href="#_step_1_product_manager_monitoring_system"></a><a class="link" href="#_step_1_product_manager_monitoring_system">3.1. Step 1: Product Manager - Monitoring System</a></h3>
+<div class="paragraph">
+<p>The Product Manager seamlessly integrates customer feedback from the live online retail e-commerce website into the chat monitoring system, enabling timely and proactive responses</p>
+</div>
+<div class="sect3">
+<h4 id="_solution"><a class="anchor" href="#_solution"></a><a class="link" href="#_solution">3.1.1. Solution:</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign in to the Smart Retail Application using the credentials for user 'asilva' to submit feedback for the clothing product, adhering to the details provided below:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Smart Retail Application below:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Web Url:</strong> <a href="https://globex-web-sentiment-analysis.%SUBDOMAIN%" class="bare" target="_blank" rel="noopener">https://globex-web-sentiment-analysis.%SUBDOMAIN%</a></p>
+</li>
+<li>
+<p><strong>Username:</strong> asilva</p>
+</li>
+<li>
+<p><strong>Password:</strong> openshift</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/01_coolstore_login.jpg" alt="login" width="640">
+</div>
+<div class="title">Figure 1. Smart Retails Main Page</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/01_coolstore_login_creds.jpg" alt="login" width="640">
+</div>
+<div class="title">Figure 2. Smart Retails Login Page</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>You have the option to share feedback for the Smart Retail Application product, following the details provided below:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Click on <code>Coolstore</code> tab from the top.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/01_coolstore_feedback-1.jpg" alt="Review" width="640">
+</div>
+<div class="title">Figure 3. Smart Retails Home Page</div>
+</div>
+</li>
+<li>
+<p>Click on <code>QUARKUS T-SHIRT</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/01_coolstore_feedback-2.jpg" alt="Review" width="640">
+</div>
+<div class="title">Figure 4. Smart Retails Products Page</div>
+</div>
+</li>
+<li>
+<p>Type something good as feedback in the review box then click <code>Submit Review</code> button.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/01_coolstore_feedback-3.jpg" alt="Review" width="640">
+</div>
+<div class="title">Figure 5. Smart Retails Review Page</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the Event-driven Ansible console to observe the seamless triggering of the Ansible Controller Job Template upon submitting feedback in the Smart Retail Application. Refer to the details provided below for a comprehensive view of this process:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Event-driven Ansible below:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Event-driven Ansible:</strong> {eda_controller_web_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> {eda_controller_admin_user}</p>
+</li>
+<li>
+<p><strong>Password:</strong> {eda_controller_admin_password}</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03_eda_login.jpg" alt="Event-driven Ansible" width="400">
+</div>
+<div class="title">Figure 6. Event-driven Ansible Login Page</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Navigate to 'Rulebook Activations' and observe that the 'push-favourable-feedback' Fire count has increased by 1. This indicates the successful triggering of the specified rulebook activation. Your attention to this metric is crucial for monitoring the feedback integration process effectively.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03_eda_favourable_trigger.jpg" alt="Event-driven Ansible" width="640">
+</div>
+<div class="title">Figure 7. Event-driven Ansible Rulebook Activations Page</div>
+</div>
+</li>
+<li>
+<p>Access 'push-favourable-feedback' rulebook activations, then click on 'History' to review the log history and obtain a detailed list of activities and events. This will provide valuable insights into the execution and outcomes associated with this rulebook activation.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03_eda_favourable_trigger_history-1.jpg" alt="Event-driven Ansible" width="640">
+</div>
+<div class="title">Figure 8. Event-driven Ansible Rulebook Activations History Page</div>
+</div>
+</li>
+<li>
+<p>Select the latest entry 'X - push-favourable-feedback' to access and review the triggered logs. Take a moment to observe the log details, as they provide valuable information about the events and actions initiated during the execution of this rulebook activation.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03_eda_favourable_trigger_history-2.jpg" alt="Event-driven Ansible" width="640">
+</div>
+<div class="title">Figure 9. Event-driven Ansible Rulebook Activations History Logs</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Log in to the Automation Controller to observe the job triggered by Event-driven Ansible upon submitting feedback. The Automation Controller job is designed to post formatted feedback in RocketChat. This feature ensures that the product manager can efficiently monitor feedback and take timely actions as needed. Refer to the details provided below for a comprehensive overview of this integration process.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Automation Controller below:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Automation Controller:</strong> {aap_controller_web_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> {aap_controller_admin_user}</p>
+</li>
+<li>
+<p><strong>Password:</strong> {aap_controller_admin_password}</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/04_controller_login-1.jpg" alt="Automation_Controller" width="350">
+</div>
+<div class="title">Figure 10. Automation Controller Login Page</div>
+</div>
+</li>
+<li>
+<p>Navigate to 'Jobs' and observe the latest executed job, identified as 'X - push-favourable-feedback.' This allows you to review the details of the most recent execution, providing insights into the actions taken as a result of the triggered event.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/04_controller_job-1.jpg" alt="Automation_Controller" width="640">
+</div>
+<div class="title">Figure 11. Automation Controller Jobs Page</div>
+</div>
+</li>
+<li>
+<p>Select 'X - push-favourable-feedback' to view and analyze the logs associated with this specific job. By examining the logs, you can gain a deeper understanding of the processes and actions carried out during the execution of this particular task.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/04_controller_job-2.jpg" alt="Automation_Controller" width="640">
+</div>
+<div class="title">Figure 12. Automation Controller Jobs Details</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the RocketChat monitoring system to view the latest message posted by the Automation Controller. The details are provided below, offering insights into the formatted feedback generated by the system:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Message Source: Smart Retail Application</p>
+</li>
+<li>
+<p>Message Triggered by: Event-driven Ansible</p>
+</li>
+<li>
+<p>Message Posted by: Automation Controller</p>
+</li>
+<li>
+<p>Content: [<em>USER SENTIMENT: positive, PRODUCT_CATEGORY: clothing, PRODUCT_ID: 329299, PRODUCT_NAME: Quarkus T-shirt, USER NAME: Addison Silva, REGION: USA, REVIEW: This good product, SCORE: 2</em>]</p>
+<div class="paragraph">
+<p>This allows for convenient monitoring by the product manager, facilitating timely actions based on the received feedback.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing RocketChat below:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>RocketChat Url:</strong> {rocketchat_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> pm_clothing</p>
+</li>
+<li>
+<p><strong>Password:</strong> {rocketchat_admin_password}</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/05_rocketchat_login-1.jpg" alt="Rocketchat" width="640">
+</div>
+<div class="title">Figure 13. RocketChat Login page</div>
+</div>
+</li>
+<li>
+<p>Navigate to the #clothing channel and review the new message that contains the original feedback, along with additional product details. This comprehensive information is designed to assist the product manager in monitoring the products effectively. Insights provided in the message contribute to informed decision-making and proactive actions based on customer feedback.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/05_rocketchat_login-2.jpg" alt="Rocketchat" width="640">
+</div>
+<div class="title">Figure 14. RocketChat Channels</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_summary"><a class="anchor" href="#_summary"></a><a class="link" href="#_summary">3.1.2. Summary:</a></h4>
+<div class="paragraph">
+<p>In this step, the Product Manager adeptly integrates customer feedback from the live online retail e-commerce website into the chat monitoring system, fostering a seamless process for timely and proactive responses. This harmonized approach ensures a dynamic and customer-focused engagement strategy.</p>
+</div>
+<div class="paragraph">
+<p><strong>Kindly proceed to the next page as we delve into the seamless integration of the ChatOps system with Event-Driven Ansible.</strong></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_admin_connecting_chatops"><a class="anchor" href="#_step_2_admin_connecting_chatops"></a><a class="link" href="#_step_2_admin_connecting_chatops">3.2. Step 2: Admin - Connecting ChatOps</a></h3>
+<div class="paragraph">
+<p>As an administrator, streamlining the integration of the ChatOps system with Event-Driven Ansible Architecture proves to be a seamless process. This integration offers a significant advantage for product managers, enabling them to effortlessly issue commands directly from the chat system. This functionality empowers product managers to swiftly trigger changes for specific categories, such as applying discounts or disabling a particular category on the online retail website.</p>
+</div>
+<div class="sect3">
+<h4 id="_solution_2"><a class="anchor" href="#_solution_2"></a><a class="link" href="#_solution_2">3.2.1. Solution:</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open Visual Studio Code to explore and gain a better understanding of the Ansible playbooks and Event-driven Ansible rulebooks utilized in the 'Solution Addressing The Challenges'.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Visual Studio Code below:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Vscode Console Url:</strong> {codeserver_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Password:</strong> {codeserver_password}</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/07_vscode_login.jpg" alt="VScode" width="640">
+</div>
+<div class="title">Figure 15. VScode Login Page</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Navigate to the 'event-driven-ansible-and-chatops' directory, then expand the 'playbooks' directory. Click on 'chatops-action.yml' to explore the playbook, which will be used to create a job template in the Automation Controller. The template will be triggered by Event-driven Ansible, executing actions on a product when messages are posted by the product manager in RocketChat.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/07_vscode_playbook-1.jpg" alt="VScode" width="640">
+</div>
+<div class="title">Figure 16. VScode Dashboard Page</div>
+</div>
+</li>
+<li>
+<p>Head to the 'event-driven-ansible-and-chatops' directory, then expand the 'rulebooks' directory. Click on 'rocketchat-trigger.yml' to delve into the rulebook. This rulebook will be instrumental in creating a Rulebook activation in Event-driven Ansible. When messages are posted by the product manager in RocketChat, this activation will, in turn, trigger the Automation Controller job template.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/07_vscode_rulebook-1.jpg" alt="VScode" width="640">
+</div>
+<div class="title">Figure 17. VScode Dashboard Page</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the Automation Controller to create a Job Template that facilitates the execution of actions on products within the Smart Retail Application. This should be triggered by messages posted by the product manager in RocketChat. The necessary details are provided below:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Automation Controller below:</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can skip the login process if you&#8217;re already signed in.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Automation Controller:</strong> {aap_controller_web_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> {aap_controller_admin_user}</p>
+</li>
+<li>
+<p><strong>Password:</strong> {aap_controller_admin_password}</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Navigate to <strong>Templates</strong> and proceed to create a new template with the following details:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Name:</strong> chatops-action</p>
+</li>
+<li>
+<p><strong>Job Type:</strong> Run</p>
+</li>
+<li>
+<p><strong>Inventory:</strong> Demo Inventory</p>
+</li>
+<li>
+<p><strong>Project:</strong> event-driven-ansible-and-chatops</p>
+</li>
+<li>
+<p><strong>Playbook:</strong> playbooks/chatops-action.yml</p>
+</li>
+<li>
+<p><strong>Credentials:</strong></p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p><strong>Selected Category:</strong> OpenShift or Kubernetes API Bearer Token</p>
+</li>
+<li>
+<p><strong>Select:</strong> OpenShift Credentials</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Variables: Select Checkbox:</strong> [x] Prompt on Launch</p>
+</li>
+<li>
+<p><strong>Variables:</strong> Kindly copy and paste the provided variables into the YAML format below for ease of use and implementation.</p>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>eda_chatops_retail_db_host: globex-db.globex.svc.cluster.local</p>
+</div>
+<div class="paragraph">
+<p>eda_chatops_retail_db_name: globex</p>
+</div>
+<div class="paragraph">
+<p>eda_chatops_retail_db_password: globex</p>
+</div>
+<div class="paragraph">
+<p>eda_chatops_retail_db_username: globex</p>
+</div>
+<div class="paragraph">
+<p>rocketchat_url: {rocketchat_url}</p>
+</div>
+<div class="paragraph">
+<p>rocketchat_auth_token: {rocketchat_auth_token}</p>
+</div>
+<div class="paragraph">
+<p>rocketchat_user_id: {rocketchat_user_id}</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Save</strong> button to save.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/04_controller_job_template-1.jpg" alt="Automation Controller" width="640">
+</div>
+<div class="title">Figure 18. Automation Controller Job Template Page</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access Event-driven Ansible to configure Rulebook Activation, facilitating the automatic triggering of an Ansible Controller Job Template upon submitting feedback in the Smart Retail Application. Please refer to the details provided below:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Event-driven Ansible below:</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can skip the login process if you&#8217;re already signed in.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Event-driven Ansible:</strong> {eda_controller_web_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> {eda_controller_admin_user}</p>
+</li>
+<li>
+<p><strong>Password:</strong> {eda_controller_admin_password}</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Navigate to Rulebook Activation and proceed to add a new rulebook following the details provided below:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Name:</strong> rocketchat-trigger</p>
+</li>
+<li>
+<p><strong>project:</strong> AI Based Smart Retail</p>
+</li>
+<li>
+<p><strong>Rulebook:</strong> rocketchat-trigger.yml</p>
+</li>
+<li>
+<p><strong>Decision environment:</strong> de-kafka-scram</p>
+</li>
+<li>
+<p><strong>Restart policy:</strong> On failure</p>
+</li>
+<li>
+<p><strong>Rulebook activation enabled?:</strong> Enabled</p>
+</li>
+<li>
+<p>Click <strong>Create rulebook activation</strong> to create rulebook</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03_eda_rulebook-1.jpg" alt="Event-driven Ansible" width="640">
+</div>
+<div class="title">Figure 19. Event-driven Ansible Rulebook Activations Page</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03_eda_rulebook-2.jpg" alt="Event-driven Ansible" width="640">
+</div>
+<div class="title">Figure 20. Event-driven Ansible Create Rulebook Activation Page</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the OpenShift Console to configure routing for the Event-driven Ansible rulebook activation created in the previous step. Refer to the details provided below:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Openshift Console below:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Console URL:</strong> {openshift_console_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> {openshift_cluster_admin_username}</p>
+</li>
+<li>
+<p><strong>Password:</strong> {openshift_cluster_admin_password}</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/06_openshift_login-1.jpg" alt="OpenShift" width="560">
+</div>
+<div class="title">Figure 21. OpenShift Console Login Page</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/06_openshift_login-2.jpg" alt="OpenShift" width="600">
+</div>
+<div class="title">Figure 22. OpenShift Console Login Page</div>
+</div>
+</li>
+<li>
+<p>Navigate to the 'Networking' section, select 'Route,' change the project to 'aap,' and then click on the 'Create Route' button to configure the Event-driven Ansible route.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/06_openshift_route-1.jpg" alt="OpenShift" width="640">
+</div>
+<div class="title">Figure 23. OpenShift Route Page</div>
+</div>
+</li>
+<li>
+<p>To set up an Event-driven Ansible route for the 'rocketchat-trigger' rulebook, follow the details provided below:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Name:</strong> eda-trigger</p>
+</li>
+<li>
+<p><strong>Service:</strong> activation-job-X-X-5000</p>
+</li>
+<li>
+<p><strong>Target port:</strong> 5000 &#8594; 5000 (TCP)</p>
+</li>
+<li>
+<p>Click Create button to save.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/06_openshift_route-2.jpg" alt="OpenShift" width="600">
+</div>
+<div class="title">Figure 24. OpenShift Route Page</div>
+</div>
+</li>
+<li>
+<p>Copy the 'eda-trigger' route, which will serve as the webhook URL for use in RocketChat.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/06_openshift_route-3.jpg" alt="OpenShift" width="640">
+</div>
+<div class="title">Figure 25. OpenShift Route Page</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access RocketChat to establish a webhook for Event-driven Ansible, following the details provided below:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing RocketChat below:</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Kindly log out and log back in as an admin if you are currently signed in. This will ensure that you have the appropriate access and privileges for the next steps
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>RocketChat Url:</strong> {rocketchat_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> admin</p>
+</li>
+<li>
+<p><strong>Password:</strong> {rocketchat_admin_password}</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Navigate to administration.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/05_rocketchat_admin-1.jpg" alt="RocketChat" width="640">
+</div>
+<div class="title">Figure 26. RocketChat Administration Page</div>
+</div>
+</li>
+<li>
+<p>Navigate to the 'Integration' section, and click on the 'New Integration' button to create a webhook for outgoing messages.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If nothing appears upon the initial click, try clicking on other links and then return to the 'Integration' section to refresh and display the content.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/05_rocketchat_webhook-1.jpg" alt="RocketChat" width="640">
+</div>
+<div class="title">Figure 27. RocketChat Webhook Page</div>
+</div>
+</li>
+<li>
+<p>Select Outgoing WebHook.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/05_rocketchat_webhook-2.jpg" alt="RocketChat" width="640">
+</div>
+<div class="title">Figure 28. RocketChat Webhook Page</div>
+</div>
+</li>
+<li>
+<p>Select Message Sent from drop down list.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/05_rocketchat_webhook-3.jpg" alt="RocketChat" width="640">
+</div>
+<div class="title">Figure 29. RocketChat Webhook Page</div>
+</div>
+</li>
+<li>
+<p>Please provide the following details:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Enabled:</strong> True</p>
+</li>
+<li>
+<p><strong>Name (optional):</strong> Event-driven Ansible and ChatOps</p>
+</li>
+<li>
+<p><strong>Channel:</strong> #clothing,#utensils</p>
+</li>
+<li>
+<p><strong>Trigger Words:</strong> update,continue,discontinue</p>
+</li>
+<li>
+<p><strong>URLs:</strong> &lt;Paste <strong>eda-trigger</strong> route created in openshift&gt;</p>
+</li>
+<li>
+<p><strong>Impersonate User:</strong> True</p>
+</li>
+<li>
+<p><strong>Post as:</strong> admin</p>
+</li>
+<li>
+<p>Keep the remaining settings as default.</p>
+</li>
+<li>
+<p>Save your changes by clicking on the 'Save Changes' button in the upper right corner.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/05_rocketchat_webhook-4.jpg" alt="RocketChat" width="640">
+</div>
+<div class="title">Figure 30. RocketChat Webhook Page</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_summary_2"><a class="anchor" href="#_summary_2"></a><a class="link" href="#_summary_2">3.2.2. Summary:</a></h4>
+<div class="paragraph">
+<p>As an administrator, seamlessly integrating the ChatOps system with Event-Driven Ansible Architecture proves advantageous for product managers. This streamlined process empowers them to issue commands directly from the chat system, enabling swift changes for specific categories, from applying discounts to disabling particular sections on the online retail website.</p>
+</div>
+<div class="paragraph">
+<p><strong>Let&#8217;s move forward to the next page where we&#8217;ll delve into the analysis of live messages and the timely execution of actions through ChatOps commands</strong></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_product_manager_constructive_decisions"><a class="anchor" href="#_step_3_product_manager_constructive_decisions"></a><a class="link" href="#_step_3_product_manager_constructive_decisions">3.3. Step 3: Product Manager - Constructive Decisions</a></h3>
+<div class="paragraph">
+<p>As a Product Manager, leveraging data points extracted from the Grafana dashboard provides a comprehensive view of both the overall and historical sentiments of customers within specific product categories. By integrating real-time feedback from our chat system, we gain valuable insights into the sentiments surrounding specific products in those categories. This holistic approach equips us to make informed and constructive decisions, such as strategically discounting products or considering the temporary disabling of certain items. This dynamic combination of historical trends and live feedback empowers us to respond effectively to customer preferences, ensuring a more responsive and customer-centric decision-making process.</p>
+</div>
+<div class="sect3">
+<h4 id="_solution_3"><a class="anchor" href="#_solution_3"></a><a class="link" href="#_solution_3">3.3.1. Solution</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign in to the Smart Retail Application using the credentials for user 'asilva' to submit feedback for the clothing product, adhering to the details provided below:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Smart Retail Application below:</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can skip the login process if you&#8217;re already signed in.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Web Url:</strong> <a href="https://globex-web-sentiment-analysis.%SUBDOMAIN%" class="bare" target="_blank" rel="noopener">https://globex-web-sentiment-analysis.%SUBDOMAIN%</a></p>
+</li>
+<li>
+<p><strong>Username:</strong> asilva</p>
+</li>
+<li>
+<p><strong>Password:</strong> openshift</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Navigate to the 'Coolstore' tab located at the top of the page.</p>
+</li>
+<li>
+<p>Choose the 'T-shirt' and kindly share your thoughts by providing feedback <code>This is over priced T-shirt</code> in the designated box.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/01_coolstore_feedback-4.jpg" alt="coolstore" width="640">
+</div>
+<div class="title">Figure 31. Smart Retail Application</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the Grafana dashboard to monitor historical sentiments for the product. Please log in to view and analyze sentiment trends over time.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Find the login details for accessing RocketChat below:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Grafana URL:</strong> <a href="https://grafana-route-influxdb-project.%SUBDOMAIN%" class="bare" target="_blank" rel="noopener">https://grafana-route-influxdb-project.%SUBDOMAIN%</a></p>
+</li>
+<li>
+<p><strong>Username:</strong> admin</p>
+</li>
+<li>
+<p><strong>Password:</strong> {gitea_admin_password}</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/08_grafana_login.jpg" alt="Grafana" width="400">
+</div>
+<div class="title">Figure 32. Grafana Login page</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Access the GLOBEX Sentiment Analysis Dashboard by searching for it in the search bar.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/08_grafana_dashboard-1.jpg" alt="Grafana" width="640">
+</div>
+<div class="title">Figure 33. Grafana Dashboard page</div>
+</div>
+</li>
+<li>
+<p>Take a moment to observe the sentiments associated with the clothing category.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/08_grafana_dashboard-2.jpg" alt="Grafana" width="640">
+</div>
+<div class="title">Figure 34. Grafana Dashboard page</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the RocketChat monitoring system to view the latest message posted by the Automation Controller. The details are provided below, offering insights into the formatted feedback generated by the system:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing RocketChat below:</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Kindly log out and log back in as pm_clothing if you are currently signed in. This will ensure that you have the appropriate access and privileges for the next steps
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>RocketChat Url:</strong> {rocketchat_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> pm_clothing</p>
+</li>
+<li>
+<p><strong>Password:</strong> {rocketchat_admin_password}</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Navigate to the #clothing channel and review the new message that contains the original feedback, along with additional product details.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Message Content:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>USER SENTIMENT</strong>: negative,</p>
+</li>
+<li>
+<p><strong>PRODUCT_CATEGORY</strong>: clothing,</p>
+</li>
+<li>
+<p><strong>PRODUCT_ID</strong>: 329299,</p>
+</li>
+<li>
+<p><strong>PRODUCT_NAME</strong>: Quarkus T-shirt,</p>
+</li>
+<li>
+<p><strong>USER NAME</strong>: Addison Silva,</p>
+</li>
+<li>
+<p><strong>REGION</strong>: USA,</p>
+</li>
+<li>
+<p><strong>REVIEW</strong>: his is over priced T-shirt,</p>
+</li>
+<li>
+<p><strong>SCORE:</strong> -1</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/05_rocketchat_channel-1.jpg" alt="RocketChat" width="640">
+</div>
+<div class="title">Figure 35. RocketChat Channel Page</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>As the product manager, your integral role encompasses active engagement with customer feedback and sentiment analysis. After carefully reviewing messages and closely monitoring sentiments, you hold the authority to take decisive action on the product. Leverage the insights gained to craft and send an action message in the #clothing channel, addressing specific actions, production ID, and optionally, price, based on the sentiments observed. Your proactive involvement plays a pivotal role in shaping a positive and customer-centric experience.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>As the product manager, after reviewing the negative feedback, you&#8217;ve decided to reduce the price of the T-shirt. To implement this change, you can directly post the command in the #clothing channel as follows: <code>update,329299,5</code>. This command will trigger Event-driven Ansible to execute an Automation Controller job template, updating the price of the product in the Smart Retail Application.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Here are the three ChatOps action commands available to the Product Manager:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Update Price Command:</strong> To update the price of a product, use the command.</p>
+<div class="listingblock">
+<div class="content">
+<pre>update,ProductID,NewPrice</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Block Product Command:</strong> To block a specific product, issue the command in the respective channel.</p>
+<div class="listingblock">
+<div class="content">
+<pre>discontinue,ProductID</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Unblock Product Command:</strong> To unblock a specific product, issue the command in the respective channel.</p>
+<div class="listingblock">
+<div class="content">
+<pre>continue,ProductID</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Replace ProductID with the product identifier and NewPrice with the updated price for the product</p>
+</div>
+<div class="paragraph">
+<p>These commands enable the Product Manager to efficiently and directly take actions on products based on the insights gathered from the ChatOps system.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Kindly wait for the acknowledgement from Event-driven Ansible to ensure the successful execution of the ChatOps command. This confirmation will provide assurance that the requested action has been carried out as intended.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/05_rocketchat_channel-2.jpg" alt="RocketChat" width="640">
+</div>
+<div class="title">Figure 36. RocketChat Channel Page</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Navigate to the Event-driven Ansible console and witness the smooth triggering of the Ansible Controller Job Template. This activation occurs when the product manager posts a chatops action in the RocketChat #clothing channel. For detailed insights, please refer to the information provided below:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Optional tasks to verify</div>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Event-driven Ansible below:</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can skip the login process if you&#8217;re already signed in.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Event-driven Ansible:</strong> {eda_controller_web_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> {eda_controller_admin_user}</p>
+</li>
+<li>
+<p><strong>Password:</strong> {eda_controller_admin_password}</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Head to 'Rulebook Activations' and take note of the 'rocketchat-trigger' Fire count, which should reflect an increase of 1. This signifies the successful triggering of the designated rulebook activation. Monitoring this metric is essential for an effective overview of the RocketChat ChatOps integration process.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the Automation Controller to observe the job triggered by Event-driven Ansible upon posting the ChatOps action in RocketChat. The Automation Controller job is specifically crafted to update the Smart Retail Application as per the action instruction provided. This functionality ensures that the product manager can efficiently and promptly take necessary actions. For a detailed understanding of this integration process, please refer to the information provided below.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Optional tasks to verify</div>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Automation Controller below:</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can skip the login process if you&#8217;re already signed in.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Automation Controller:</strong> {aap_controller_web_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> {aap_controller_admin_user}</p>
+</li>
+<li>
+<p><strong>Password:</strong> {aap_controller_admin_password}</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Head to 'Jobs' and take note of the latest executed job labeled 'X - chatops-action.' This allows you to review the details of the most recent execution, offering insights into the specific actions taken as a result of the triggered event.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Return to the Smart Retail Application, refresh the page, and locate the same T-shirt to verify any updated price. Refer to the details provided below for accurate information:</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Go to the 'Coolstore' tab at the top of the page and find the same T-shirt to confirm that the price has been successfully updated..</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/01_coolstore_action-1.jpg" alt="coolstore" width="640">
+</div>
+<div class="title">Figure 37. Smart Retail Appllicaton Page</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conclusion"><a class="anchor" href="#_conclusion"></a><a class="link" href="#_conclusion">3.4. Conclusion</a></h3>
+<div class="paragraph">
+<p>In conclusion, as a Product Manager, the amalgamation of comprehensive data insights from the Grafana dashboard provides a robust understanding of overall and historical customer sentiments within specific product categories. The integration of real-time feedback from our chat system enhances our ability to discern sentiments surrounding specific products. This dynamic combination equips us to make informed decisions, strategically implementing discounts or temporarily disabling items as needed. The synergy between historical trends and live feedback ensures our responsiveness to evolving customer preferences, fostering a customer-centric decision-making process.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_on_section"><a class="anchor" href="#_add_on_section"></a><a class="link" href="#_add_on_section">3.5. Add on Section:</a></h3>
+<div class="paragraph">
+<p>Feel free to initiate and monitor the entire process for the utensils product. Below are the necessary details to ensure a smooth and comprehensive observation:</p>
+</div>
+<div class="sect3">
+<h4 id="_solution_4"><a class="anchor" href="#_solution_4"></a><a class="link" href="#_solution_4">3.5.1. Solution:</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Re-visit the Smart Retail application console, select any utensils product, and share your thoughts, whether positive or constructive, about the product.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Smart Retail Application below:</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can skip the login process if you&#8217;re already signed in.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Web Url:</strong> <a href="https://globex-web-sentiment-analysis.%SUBDOMAIN%" class="bare" target="_blank" rel="noopener">https://globex-web-sentiment-analysis.%SUBDOMAIN%</a></p>
+</li>
+<li>
+<p><strong>Username:</strong> asilva</p>
+</li>
+<li>
+<p><strong>Password:</strong> openshift</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the Grafana dashboard to monitor historical sentiments for the utensils product.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Find the login details for accessing RocketChat below:</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can skip the login process if you&#8217;re already signed in.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Grafana URL:</strong> <a href="https://grafana-route-influxdb-project.%SUBDOMAIN%" class="bare" target="_blank" rel="noopener">https://grafana-route-influxdb-project.%SUBDOMAIN%</a></p>
+</li>
+<li>
+<p><strong>Username:</strong> admin</p>
+</li>
+<li>
+<p><strong>Password:</strong> {gitea_admin_password}</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the RocketChat monitoring system to view the latest message posted by the Automation Controller.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing RocketChat below:</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Please logout and re-login as pm_utensils if you&#8217;re already signed in.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>RocketChat Url:</strong> {rocketchat_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> pm_utensils</p>
+</li>
+<li>
+<p><strong>Password:</strong> {rocketchat_admin_password}</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Navigate to the #utensils channel and review the new message.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>As the product manager overseeing Utensils, following a thorough review of the feedback, Try to execute the necessary ChatOps commands in the #utensils channel for the product.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Here are the three ChatOps action commands available to the Product Manager:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Update Price Command:</strong> To update the price of a product, use the command.</p>
+<div class="listingblock">
+<div class="content">
+<pre>update,ProductID,NewPrice</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Block Product Command:</strong> To block a specific product, issue the command in the respective channel.</p>
+<div class="listingblock">
+<div class="content">
+<pre>discontinue,ProductID</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Unblock Product Command:</strong> To unblock a specific product, issue the command in the respective channel.</p>
+<div class="listingblock">
+<div class="content">
+<pre>continue,ProductID</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Replace ProductID with the product identifier and NewPrice with the updated price for the product</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Navigate to the Event-driven Ansible console and witness the smooth triggering of the Ansible Controller Job Template.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Event-driven Ansible below:</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can skip the login process if you&#8217;re already signed in.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Event-driven Ansible:</strong> {eda_controller_web_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> {eda_controller_admin_user}</p>
+</li>
+<li>
+<p><strong>Password:</strong> {eda_controller_admin_password}</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the Automation Controller to observe the job triggered by Event-driven Ansible upon posting the ChatOps action in RocketChat.</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Find the login details for accessing Automation Controller below:</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can skip the login process if you&#8217;re already signed in.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Automation Controller:</strong> {aap_controller_web_url}[window=_blank]</p>
+</li>
+<li>
+<p><strong>Username:</strong> {aap_controller_admin_user}</p>
+</li>
+<li>
+<p><strong>Password:</strong> {aap_controller_admin_password}</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Return to the Smart Retail Application, refresh the page, and locate the same utensil product to verify.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="02-architecture.html" class="query-params-link">2. Architecture</a></span>
+  <span class="next"><a href="04-developer-resources.html" class="query-params-link">4. Developer Resources</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img
+          src="../_/img/app-services-logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"  href="https://redhat.com" ></a>
+</footer><script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
