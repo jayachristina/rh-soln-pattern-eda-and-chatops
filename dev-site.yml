@@ -4,7 +4,7 @@ runtime:
 site:
   title: Event Driven Ansible and ChatOps
   url: http://localhost:3000/
-  start_page: solution-pattern-template::index.adoc
+  start_page: chatops::index.adoc
 
 content:
   sources:
